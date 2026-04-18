@@ -85,9 +85,6 @@ public class GraphRenderer {
         canvas.getChildren().add(line);
         edgeLines.put(key, line);
 
-        //
-        // TO MANUALLY ADJUSTMENT change LABEL_T (0.0–1.0, position along edge)
-
         if (ve.getWeight() != 1) {
             final double LABEL_T = 0.30; // 30% from source node
             final double LABEL_OFFSET = 16; // pixels away from edge line

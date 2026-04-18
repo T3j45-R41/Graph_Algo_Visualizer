@@ -25,7 +25,7 @@ public class StepAnimator {
     private static final Color COLOR_EDGE_CONSIDER = Color.web("#f1c40f"); // yellow
 
     private final GraphRenderer renderer;
-    private final double stepDurationSeconds;
+    private double stepDurationSeconds;
 
     // playing state
     private List<Step> steps;
@@ -53,6 +53,14 @@ public class StepAnimator {
 
     public void setVisualData(GraphVisualData data) {
         this.visualData = data;
+    }
+
+    public void setStepDuration(double seconds) {
+        this.stepDurationSeconds = seconds;
+        if (isPlaying && timeline != null) {
+            timeline.stop();
+            play();
+        }
     }
 
     public void load(List<Step> steps) {
@@ -235,6 +243,54 @@ public class StepAnimator {
                     l.setStroke(COLOR_EDGE_REJECT);
                     l.setStrokeWidth(3);
                 }
+                break;
+            }
+
+            case RELAX_EDGE: {
+                Line l = renderer.getEdgeLine(step.getFromNode(), step.getToNode());
+                if (l != null) {
+                    l.setStroke(Color.web("#00bcd4")); // cyan — relaxation success
+                    l.setStrokeWidth(4);
+                }
+                break;
+            }
+
+            case NO_UPDATE: {
+                Line l = renderer.getEdgeLine(step.getFromNode(), step.getToNode());
+                if (l != null) {
+                    l.setStroke(Color.web("#7f8c8d")); // dim gray — no change
+                    l.setStrokeWidth(2);
+                }
+                break;
+            }
+
+            case NEGATIVE_CYCLE: {
+                Circle c = renderer.getNodeCircle(step.getNode());
+                if (c != null)
+                    c.setFill(Color.web("#e91e63")); // magenta — alert
+                break;
+            }
+
+            case UPDATE_CELL: {
+                Circle c = renderer.getNodeCircle(step.getNode());
+                if (c != null)
+                    c.setFill(Color.web("#009688")); // teal
+                break;
+            }
+
+            case TSP_TOUR_EDGE: {
+                Line l = renderer.getEdgeLine(step.getFromNode(), step.getToNode());
+                if (l != null) {
+                    l.setStroke(Color.web("#9b59b6")); // purple — tour edge
+                    l.setStrokeWidth(4.5);
+                }
+                break;
+            }
+
+            case TOPO_PUSH_STACK: {
+                Circle c = renderer.getNodeCircle(step.getNode());
+                if (c != null)
+                    c.setFill(Color.web("#1a237e")); // deep blue — topo push
                 break;
             }
         }

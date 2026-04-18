@@ -64,7 +64,6 @@ public class Graph {
         return directed ? total : total / 2;
     }
 
-    // CLI printing
     public void printGraph() {
         for (Map.Entry<Integer, List<int[]>> entry : adjacencyList.entrySet()) {
             StringBuilder sb = new StringBuilder();

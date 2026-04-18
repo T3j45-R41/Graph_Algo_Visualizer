@@ -43,7 +43,7 @@ public class GraphInputScreen {
     }
 
     public void show() {
-        // ── Header ──
+        // Header
         Label title = new Label("Graph Algorithm Visualizer");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 26));
         title.setStyle("-fx-text-fill: white;");
@@ -57,22 +57,22 @@ public class GraphInputScreen {
         headerContent.setPadding(new Insets(18, 0, 18, 0));
         headerContent.setStyle("-fx-background-color: #34495e;");
 
-        // ── Left Panel: Graph Config ──
+        // Left Panel
         VBox configPanel = buildConfigPanel();
 
-        // ── Center Panel: Edge Input + Table ──
+        // Center Panel
         VBox edgePanel = buildEdgePanel();
 
-        // ── Main Content ──
+        // Main Content
         HBox mainContent = new HBox(20, configPanel, edgePanel);
         mainContent.setPadding(new Insets(20));
         mainContent.setStyle("-fx-background-color: #2c3e50;");
         HBox.setHgrow(edgePanel, Priority.ALWAYS);
 
-        // ── Bottom Panel ──
+        // Bottom Panel
         HBox bottomPanel = buildBottomPanel();
 
-        // ── Root ──
+        // Root
         VBox root = new VBox(0, headerContent, mainContent, bottomPanel);
         VBox.setVgrow(mainContent, Priority.ALWAYS);
         root.setStyle("-fx-background-color: #2c3e50;");
@@ -84,9 +84,7 @@ public class GraphInputScreen {
         stage.show();
     }
 
-    // ═══════════════════════════════════════════════════════
     // CONFIG PANEL (left side)
-    // ═══════════════════════════════════════════════════════
 
     private VBox buildConfigPanel() {
         VBox panel = new VBox(14);
@@ -147,9 +145,7 @@ public class GraphInputScreen {
         return panel;
     }
 
-    // ═══════════════════════════════════════════════════════
     // EDGE PANEL (center)
-    // ═══════════════════════════════════════════════════════
 
     private VBox buildEdgePanel() {
         VBox panel = new VBox(12);
@@ -228,17 +224,15 @@ public class GraphInputScreen {
         // Dark styling
         table.setStyle(
                 "-fx-background-color: #2c3e50; " +
-                "-fx-control-inner-background: #2c3e50; " +
-                "-fx-control-inner-background-alt: #34495e; " +
-                "-fx-table-cell-border-color: #3d566e; " +
-                "-fx-text-fill: #ecf0f1;");
+                        "-fx-control-inner-background: #2c3e50; " +
+                        "-fx-control-inner-background-alt: #34495e; " +
+                        "-fx-table-cell-border-color: #3d566e; " +
+                        "-fx-text-fill: #ecf0f1;");
 
         return table;
     }
 
-    // ═══════════════════════════════════════════════════════
     // BOTTOM PANEL
-    // ═══════════════════════════════════════════════════════
 
     private HBox buildBottomPanel() {
         Button loadSampleBtn = accentButton("\uD83D\uDCE5 Load Sample", "#8e44ad", "#6c3483");
@@ -263,15 +257,14 @@ public class GraphInputScreen {
         return bottom;
     }
 
-    // ═══════════════════════════════════════════════════════
     // ACTIONS
-    // ═══════════════════════════════════════════════════════
 
     private void addEdge() {
         errorLabel.setText("");
 
         int nodeCount = parseNodeCount();
-        if (nodeCount < 0) return;
+        if (nodeCount < 0)
+            return;
 
         int from, to, weight;
         try {
@@ -320,7 +313,7 @@ public class GraphInputScreen {
                 }
             } else {
                 if ((existing.getFrom() == from && existing.getTo() == to) ||
-                    (existing.getFrom() == to && existing.getTo() == from)) {
+                        (existing.getFrom() == to && existing.getTo() == from)) {
                     errorLabel.setText("Edge " + from + " — " + to + " already exists.");
                     return;
                 }
@@ -374,7 +367,8 @@ public class GraphInputScreen {
         errorLabel.setText("");
 
         int nodeCount = parseNodeCount();
-        if (nodeCount < 0) return;
+        if (nodeCount < 0)
+            return;
 
         if (edgeData.isEmpty()) {
             errorLabel.setText("Please add at least one edge.");
@@ -438,9 +432,7 @@ public class GraphInputScreen {
         }
     }
 
-    // ═══════════════════════════════════════════════════════
     // UI HELPERS
-    // ═══════════════════════════════════════════════════════
 
     private Label sectionHeading(String text) {
         Label heading = new Label(text);
@@ -463,12 +455,12 @@ public class GraphInputScreen {
         tf.setFont(Font.font("Arial", 13));
         tf.setStyle(
                 "-fx-background-color: #2c3e50; " +
-                "-fx-text-fill: #ecf0f1; " +
-                "-fx-prompt-text-fill: #7f8c8d; " +
-                "-fx-border-color: #3d566e; " +
-                "-fx-border-radius: 5; " +
-                "-fx-background-radius: 5; " +
-                "-fx-padding: 6 10;");
+                        "-fx-text-fill: #ecf0f1; " +
+                        "-fx-prompt-text-fill: #7f8c8d; " +
+                        "-fx-border-color: #3d566e; " +
+                        "-fx-border-radius: 5; " +
+                        "-fx-background-radius: 5; " +
+                        "-fx-padding: 6 10;");
         return tf;
     }
 
@@ -491,9 +483,7 @@ public class GraphInputScreen {
         return btn;
     }
 
-    // ═══════════════════════════════════════════════════════
     // EDGE ENTRY (data model for table)
-    // ═══════════════════════════════════════════════════════
 
     public static class EdgeEntry {
         private final SimpleIntegerProperty from;
@@ -506,12 +496,28 @@ public class GraphInputScreen {
             this.weight = new SimpleIntegerProperty(weight);
         }
 
-        public int getFrom() { return from.get(); }
-        public int getTo() { return to.get(); }
-        public int getWeight() { return weight.get(); }
+        public int getFrom() {
+            return from.get();
+        }
 
-        public SimpleIntegerProperty fromProperty() { return from; }
-        public SimpleIntegerProperty toProperty() { return to; }
-        public SimpleIntegerProperty weightProperty() { return weight; }
+        public int getTo() {
+            return to.get();
+        }
+
+        public int getWeight() {
+            return weight.get();
+        }
+
+        public SimpleIntegerProperty fromProperty() {
+            return from;
+        }
+
+        public SimpleIntegerProperty toProperty() {
+            return to;
+        }
+
+        public SimpleIntegerProperty weightProperty() {
+            return weight;
+        }
     }
 }

@@ -16,5 +16,17 @@ public enum StepType {
 
     EDGE_SELECTED,
 
-    EDGE_REJECTED
+    EDGE_REJECTED,
+
+    RELAX_EDGE,
+
+    NO_UPDATE,
+
+    NEGATIVE_CYCLE,
+
+    UPDATE_CELL,
+
+    TSP_TOUR_EDGE,
+
+    TOPO_PUSH_STACK
 }

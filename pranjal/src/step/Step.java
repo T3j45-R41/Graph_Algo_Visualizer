@@ -58,6 +58,18 @@ public class Step {
                 return "Selected edge " + fromNode + " \u2192 " + toNode + " for MST";
             case EDGE_REJECTED:
                 return "Rejected edge " + fromNode + " \u2192 " + toNode;
+            case RELAX_EDGE:
+                return "Relaxed edge " + fromNode + " \u2192 " + toNode + " (distance updated)";
+            case NO_UPDATE:
+                return "Edge " + fromNode + " \u2192 " + toNode + " — no improvement";
+            case NEGATIVE_CYCLE:
+                return "\u26A0 Negative cycle detected at node " + node;
+            case UPDATE_CELL:
+                return "Updated distance matrix for node " + node;
+            case TSP_TOUR_EDGE:
+                return "Tour edge: " + fromNode + " \u2192 " + toNode;
+            case TOPO_PUSH_STACK:
+                return "Pushed node " + node + " to topological order";
             default:
                 return type.toString();
         }
@@ -75,7 +87,14 @@ public class Step {
             case EDGE_CONSIDERED:
             case EDGE_SELECTED:
             case EDGE_REJECTED:
+            case RELAX_EDGE:
+            case NO_UPDATE:
+            case TSP_TOUR_EDGE:
                 return type + "(edge " + fromNode + " -> " + toNode + ")";
+            case NEGATIVE_CYCLE:
+            case UPDATE_CELL:
+            case TOPO_PUSH_STACK:
+                return type + "(node=" + node + ")";
             default:
                 return type + "(node=" + node
                         + ", from=" + fromNode + ", to=" + toNode + ")";
