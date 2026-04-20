@@ -18,15 +18,15 @@ public class BellmanFord {
         List<Integer> vertices = new ArrayList<>(graph.getVertices());
         int V = vertices.size();
 
-        // Initialize distances to infinity
+        
         for (int v : vertices) {
             dist.put(v, 99999);
         }
         dist.put(start, 0);
         steps.add(Step.nodeStep(StepType.VISIT_NODE, start));
 
-        // Collect all edges (for directed graphs, each edge appears once;
-        // for undirected, each edge appears in both directions from Graph)
+        
+        
         List<int[]> allEdges = new ArrayList<>();
         for (int u : vertices) {
             for (int[] neighbor : graph.getNeighbors(u)) {
@@ -34,7 +34,7 @@ public class BellmanFord {
             }
         }
 
-        // Relax all edges V-1 times
+        
         for (int pass = 0; pass < V - 1; pass++) {
             for (int[] edge : allEdges) {
                 int u = edge[0];
@@ -51,11 +51,11 @@ public class BellmanFord {
                     steps.add(Step.edgeStep(StepType.NO_UPDATE, u, v));
                 }
             }
-            // Mark end of this pass
+            
             steps.add(Step.nodeStep(StepType.PROCESS_NODE, pass < V ? vertices.get(pass) : start));
         }
 
-        // Check for negative weight cycles (V-th pass)
+        
         boolean hasNegativeCycle = false;
         for (int[] edge : allEdges) {
             int u = edge[0];
@@ -68,7 +68,7 @@ public class BellmanFord {
             }
         }
 
-        // Mark all nodes as processed if no negative cycle
+        
         if (!hasNegativeCycle) {
             for (int v : vertices) {
                 steps.add(Step.nodeStep(StepType.PROCESS_NODE, v));

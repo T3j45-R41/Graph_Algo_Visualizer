@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Graph {
 
-    // vertex - list of [nieghbour , weight]
+    
     private final Map<Integer, List<int[]>> adjacencyList;
     private final boolean directed;
 
@@ -38,10 +38,10 @@ public class Graph {
         addVertex(u);
         addVertex(v);
 
-        // Forward edge
+        
         adjacencyList.get(u).add(new int[] { v, w });
 
-        // Reverse edge for undirected graphs
+        
         if (!directed) {
             adjacencyList.get(v).add(new int[] { u, w });
         }
@@ -55,7 +55,7 @@ public class Graph {
         return directed;
     }
 
-    // total edges
+    
     public int getEdgeCount() {
         int total = 0;
         for (List<int[]> neighbors : adjacencyList.values()) {

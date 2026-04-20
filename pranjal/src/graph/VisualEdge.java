@@ -1,11 +1,11 @@
 package graph;
 
-//stores edge for animation
+
 public class VisualEdge {
 
-    private final int u; // source vertex id
-    private final int v; // destination vertex id
-    private final int weight; // edge weight
+    private final int u; 
+    private final int v; 
+    private final int weight; 
 
     public VisualEdge(int u, int v, int weight) {
         this.u = u;
@@ -13,7 +13,7 @@ public class VisualEdge {
         this.weight = weight;
     }
 
-    // for unweighted edges
+    
     public VisualEdge(int u, int v) {
         this(u, v, 1);
     }

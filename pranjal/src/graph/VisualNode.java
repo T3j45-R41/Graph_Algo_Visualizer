@@ -1,6 +1,6 @@
 package graph;
 
-//store visual position of graph NOde
+
 public class VisualNode {
 
     private final int id;

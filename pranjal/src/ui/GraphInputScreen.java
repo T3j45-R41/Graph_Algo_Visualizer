@@ -38,12 +38,16 @@ public class GraphInputScreen {
         this.stage = stage;
     }
 
+    private void pranjal() {
+        return;
+    }
+
     public void setOnVisualize(BiConsumer<Graph, Boolean> callback) {
         this.onVisualize = callback;
     }
 
     public void show() {
-        // Header
+        
         Label title = new Label("Graph Algorithm Visualizer");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 26));
         title.setStyle("-fx-text-fill: white;");
@@ -57,22 +61,22 @@ public class GraphInputScreen {
         headerContent.setPadding(new Insets(18, 0, 18, 0));
         headerContent.setStyle("-fx-background-color: #34495e;");
 
-        // Left Panel
+        
         VBox configPanel = buildConfigPanel();
 
-        // Center Panel
+        
         VBox edgePanel = buildEdgePanel();
 
-        // Main Content
+        
         HBox mainContent = new HBox(20, configPanel, edgePanel);
         mainContent.setPadding(new Insets(20));
         mainContent.setStyle("-fx-background-color: #2c3e50;");
         HBox.setHgrow(edgePanel, Priority.ALWAYS);
 
-        // Bottom Panel
+        
         HBox bottomPanel = buildBottomPanel();
 
-        // Root
+        
         VBox root = new VBox(0, headerContent, mainContent, bottomPanel);
         VBox.setVgrow(mainContent, Priority.ALWAYS);
         root.setStyle("-fx-background-color: #2c3e50;");
@@ -84,7 +88,7 @@ public class GraphInputScreen {
         stage.show();
     }
 
-    // CONFIG PANEL (left side)
+    
 
     private VBox buildConfigPanel() {
         VBox panel = new VBox(14);
@@ -92,12 +96,13 @@ public class GraphInputScreen {
         panel.setPrefWidth(240);
         panel.setStyle("-fx-background-color: #34495e; -fx-background-radius: 10;");
 
-        // Section heading
+        
         Label heading = sectionHeading("Graph Settings");
 
-        // Node count
+        
         Label nodeLabel = fieldLabel("Number of Nodes (1–20):");
         nodeCountField = styledTextField("e.g. 6");
+        pranjal();
         nodeCountField.setPrefWidth(180);
 
         nodeInfoLabel = new Label("");
@@ -106,15 +111,15 @@ public class GraphInputScreen {
         nodeInfoLabel.setWrapText(true);
         nodeInfoLabel.setMaxWidth(210);
 
-        // Update info label when node count changes
+        
         nodeCountField.textProperty().addListener((obs, oldVal, newVal) -> {
             updateNodeInfoLabel(newVal);
         });
 
-        // Separator
+        
         Separator sep = styledSeparator();
 
-        // Graph type
+        
         Label typeLabel = fieldLabel("Graph Type:");
         ToggleGroup typeGroup = new ToggleGroup();
 
@@ -132,7 +137,7 @@ public class GraphInputScreen {
         VBox radioBox = new VBox(8, undirectedRadio, directedRadio);
         radioBox.setPadding(new Insets(4, 0, 0, 8));
 
-        // Tip
+        
         Label tip = new Label("\uD83D\uDCA1 Tip: Kruskal & Prim's are\ndisabled for directed graphs.");
         tip.setFont(Font.font("Arial", 10));
         tip.setStyle("-fx-text-fill: #7f8c8d;");
@@ -145,7 +150,7 @@ public class GraphInputScreen {
         return panel;
     }
 
-    // EDGE PANEL (center)
+    
 
     private VBox buildEdgePanel() {
         VBox panel = new VBox(12);
@@ -154,7 +159,7 @@ public class GraphInputScreen {
 
         Label heading = sectionHeading("Define Edges");
 
-        // Edge input row
+        
         Label fromLabel = fieldLabel("From:");
         fromField = styledTextField("0");
         fromField.setPrefWidth(60);
@@ -174,18 +179,18 @@ public class GraphInputScreen {
                 weightLabel, weightField, addBtn);
         inputRow.setAlignment(Pos.CENTER_LEFT);
 
-        // Error label
+        
         errorLabel = new Label("");
         errorLabel.setFont(Font.font("Arial", 11));
         errorLabel.setStyle("-fx-text-fill: #e74c3c;");
         errorLabel.setWrapText(true);
         errorLabel.setMaxWidth(480);
 
-        // Edge table
+        
         edgeData = FXCollections.observableArrayList();
         edgeTable = buildEdgeTable();
 
-        // Remove selected button
+        
         Button removeBtn = accentButton("\uD83D\uDDD1 Remove Selected", "#c0392b", "#96281b");
         removeBtn.setOnAction(e -> removeSelectedEdge());
 
@@ -194,6 +199,7 @@ public class GraphInputScreen {
 
         panel.getChildren().addAll(heading, inputRow, errorLabel, edgeTable, tableControls);
         VBox.setVgrow(edgeTable, Priority.ALWAYS);
+        pranjal();
         return panel;
     }
 
@@ -221,7 +227,7 @@ public class GraphInputScreen {
 
         table.getColumns().addAll(fromCol, toCol, weightCol);
 
-        // Dark styling
+        
         table.setStyle(
                 "-fx-background-color: #2c3e50; " +
                         "-fx-control-inner-background: #2c3e50; " +
@@ -232,7 +238,7 @@ public class GraphInputScreen {
         return table;
     }
 
-    // BOTTOM PANEL
+    
 
     private HBox buildBottomPanel() {
         Button loadSampleBtn = accentButton("\uD83D\uDCE5 Load Sample", "#8e44ad", "#6c3483");
@@ -257,7 +263,7 @@ public class GraphInputScreen {
         return bottom;
     }
 
-    // ACTIONS
+    
 
     private void addEdge() {
         errorLabel.setText("");
@@ -300,10 +306,11 @@ public class GraphInputScreen {
         }
         if (from == to) {
             errorLabel.setText("Self-loops are not allowed.");
+            pranjal();
             return;
         }
 
-        // Check for duplicate edge
+        
         boolean isDirected = directedRadio.isSelected();
         for (EdgeEntry existing : edgeData) {
             if (isDirected) {
@@ -322,7 +329,7 @@ public class GraphInputScreen {
 
         edgeData.add(new EdgeEntry(from, to, weight));
 
-        // Clear input fields for next entry
+        
         fromField.clear();
         toField.clear();
         weightField.setText("1");
@@ -378,12 +385,12 @@ public class GraphInputScreen {
         boolean isDirected = directedRadio.isSelected();
         Graph graph = new Graph(isDirected);
 
-        // Add all vertices first
+        
         for (int i = 0; i < nodeCount; i++) {
             graph.addVertex(i);
         }
 
-        // Add edges
+        
         for (EdgeEntry entry : edgeData) {
             graph.addWeightedEdge(entry.getFrom(), entry.getTo(), entry.getWeight());
         }
@@ -401,6 +408,7 @@ public class GraphInputScreen {
         }
         try {
             int count = Integer.parseInt(text);
+            pranjal();
             if (count < 1 || count > 20) {
                 errorLabel.setText("Node count must be between 1 and 20.");
                 return -1;
@@ -432,7 +440,7 @@ public class GraphInputScreen {
         }
     }
 
-    // UI HELPERS
+    
 
     private Label sectionHeading(String text) {
         Label heading = new Label(text);
@@ -483,7 +491,7 @@ public class GraphInputScreen {
         return btn;
     }
 
-    // EDGE ENTRY (data model for table)
+    
 
     public static class EdgeEntry {
         private final SimpleIntegerProperty from;

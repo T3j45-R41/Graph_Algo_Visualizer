@@ -18,7 +18,7 @@ public class BFS {
         Set<Integer> visited = new HashSet<>();
         Queue<Integer> queue = new LinkedList<>();
 
-        // pass start node to queue
+        
         visited.add(start);
         queue.add(start);
         steps.add(Step.nodeStep(StepType.ADD_TO_QUEUE, start));
@@ -27,13 +27,13 @@ public class BFS {
             int current = queue.poll();
             steps.add(Step.nodeStep(StepType.REMOVE_FROM_QUEUE, current));
 
-            // Visit this node
+            
             steps.add(Step.nodeStep(StepType.VISIT_NODE, current));
 
             for (int[] neighbor : graph.getNeighbors(current)) {
                 int next = neighbor[0];
 
-                // Record edge exploration
+                
                 steps.add(Step.edgeStep(StepType.EXPLORE_EDGE, current, next));
 
                 if (!visited.contains(next)) {
@@ -43,7 +43,7 @@ public class BFS {
                 }
             }
 
-            // Done processing this node
+            
             steps.add(Step.nodeStep(StepType.PROCESS_NODE, current));
         }
 

@@ -11,10 +11,7 @@ import java.util.Set;
 
 public class TopologicalSort {
 
-    /**
-     * DFS-based Topological Sort.
-     * Only valid for directed acyclic graphs (DAGs).
-     */
+    
     public static List<Step> run(Graph graph) {
         List<Step> steps = new ArrayList<>();
         Set<Integer> visited = new HashSet<>();
@@ -44,7 +41,7 @@ public class TopologicalSort {
             }
         }
 
-        // All descendants processed — push to topological order
+        
         steps.add(Step.nodeStep(StepType.TOPO_PUSH_STACK, current));
         steps.add(Step.nodeStep(StepType.PROCESS_NODE, current));
     }

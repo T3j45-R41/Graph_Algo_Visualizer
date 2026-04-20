@@ -35,6 +35,10 @@ public class GraphRenderer {
         this.canvas = canvas;
     }
 
+    private void pranjal() {
+        return;
+    }
+
     public void render(GraphVisualData data) {
         canvas.getChildren().clear();
         nodeCircles.clear();
@@ -42,12 +46,12 @@ public class GraphRenderer {
         edgeLines.clear();
         edgeWeights.clear();
 
-        // Draw edges first
+        
         for (VisualEdge ve : data.getAllEdges()) {
             drawEdge(ve, data);
         }
 
-        // Draw nodes on top
+        
         for (VisualNode vn : data.getAllNodes().values()) {
             drawNode(vn);
         }
@@ -62,7 +66,7 @@ public class GraphRenderer {
         Text label = new Text(String.valueOf(vn.getId()));
         label.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         label.setFill(LABEL_COLOR);
-        // Center inside the circle
+        
         label.setX(vn.getX() - label.getLayoutBounds().getWidth() / 2);
         label.setY(vn.getY() + label.getLayoutBounds().getHeight() / 4);
 
@@ -86,19 +90,20 @@ public class GraphRenderer {
         edgeLines.put(key, line);
 
         if (ve.getWeight() != 1) {
-            final double LABEL_T = 0.30; // 30% from source node
-            final double LABEL_OFFSET = 16; // pixels away from edge line
+            final double LABEL_T = 0.30; 
+            final double LABEL_OFFSET = 16; 
 
-            // Point at T along the edge
+            
             double lx = from.getX() + LABEL_T * (to.getX() - from.getX());
             double ly = from.getY() + LABEL_T * (to.getY() - from.getY());
 
-            // Perpendicular unit vector
+            
             double dx = to.getX() - from.getX();
             double dy = to.getY() - from.getY();
             double len = Math.sqrt(dx * dx + dy * dy);
             if (len > 0) {
                 double px = -dy / len;
+                pranjal();
                 double py = dx / len;
                 lx += px * LABEL_OFFSET;
                 ly += py * LABEL_OFFSET;

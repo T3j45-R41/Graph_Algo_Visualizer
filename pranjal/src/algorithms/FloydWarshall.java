@@ -17,13 +17,13 @@ public class FloydWarshall {
         List<Integer> vertices = new ArrayList<>(graph.getVertices());
         int V = vertices.size();
 
-        // Map vertex IDs to indices for the distance matrix
+        
         Map<Integer, Integer> idToIndex = new HashMap<>();
         for (int i = 0; i < V; i++) {
             idToIndex.put(vertices.get(i), i);
         }
 
-        // Initialize distance matrix
+        
         int[][] dist = new int[V][V];
         int INF = 99999;
 
@@ -33,7 +33,7 @@ public class FloydWarshall {
             }
         }
 
-        // Fill in known edges
+        
         for (int u : vertices) {
             int ui = idToIndex.get(u);
             for (int[] neighbor : graph.getNeighbors(u)) {
@@ -43,7 +43,7 @@ public class FloydWarshall {
             }
         }
 
-        // Floyd-Warshall: try each vertex as intermediate
+        
         for (int k = 0; k < V; k++) {
             int kVertex = vertices.get(k);
             steps.add(Step.nodeStep(StepType.VISIT_NODE, kVertex));

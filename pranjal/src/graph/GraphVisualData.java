@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class GraphVisualData {
 
-    private final Map<Integer, VisualNode> nodeMap; // vertex id -> visual node
-    private final List<VisualEdge> edges; // all visual edges
+    private final Map<Integer, VisualNode> nodeMap; 
+    private final List<VisualEdge> edges; 
 
     public GraphVisualData() {
         this.nodeMap = new HashMap<>();
@@ -40,15 +40,15 @@ public class GraphVisualData {
     }
 
     public void buildFromGraph(Graph graph, double centerX, double centerY, double radius) {
-        // Clear any previous data
+        
         nodeMap.clear();
         edges.clear();
 
-        // Collect vertices into a list for indexed access
+        
         List<Integer> vertices = new ArrayList<>(graph.getVertices());
         int n = vertices.size();
 
-        // Place nodes in a circle
+        
         for (int i = 0; i < n; i++) {
             double angle = 2 * Math.PI * i / n;
             double x = centerX + radius * Math.cos(angle);
@@ -56,7 +56,7 @@ public class GraphVisualData {
             addNode(vertices.get(i), x, y);
         }
 
-        // Add edges
+        
         for (int v : vertices) {
             for (int[] neighbor : graph.getNeighbors(v)) {
                 int dest = neighbor[0];
@@ -74,7 +74,7 @@ public class GraphVisualData {
         }
     }
 
-    // FOr CLI printing
+    
     public void print() {
         System.out.println("Nodes:");
         for (VisualNode node : nodeMap.values()) {

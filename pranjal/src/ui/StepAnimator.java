@@ -15,21 +15,21 @@ import java.util.List;
 
 public class StepAnimator {
 
-    // colors
-    private static final Color COLOR_VISIT = Color.web("#e74c3c"); // red
-    private static final Color COLOR_PROCESS = Color.web("#2ecc71"); // green
-    private static final Color COLOR_IN_QUEUE = Color.web("#f39c12"); // orange
-    private static final Color COLOR_EXPLORE_EDGE = Color.web("#e67e22"); // dark orange
-    private static final Color COLOR_EDGE_SELECT = Color.web("#27ae60"); // green
-    private static final Color COLOR_EDGE_REJECT = Color.web("#c0392b"); // dark red
-    private static final Color COLOR_EDGE_CONSIDER = Color.web("#f1c40f"); // yellow
+    
+    private static final Color COLOR_VISIT = Color.web("#e74c3c"); 
+    private static final Color COLOR_PROCESS = Color.web("#2ecc71"); 
+    private static final Color COLOR_IN_QUEUE = Color.web("#f39c12"); 
+    private static final Color COLOR_EXPLORE_EDGE = Color.web("#e67e22"); 
+    private static final Color COLOR_EDGE_SELECT = Color.web("#27ae60"); 
+    private static final Color COLOR_EDGE_REJECT = Color.web("#c0392b"); 
+    private static final Color COLOR_EDGE_CONSIDER = Color.web("#f1c40f"); 
 
     private final GraphRenderer renderer;
     private double stepDurationSeconds;
 
-    // playing state
+    
     private List<Step> steps;
-    private int currentIndex = -1; // steps
+    private int currentIndex = -1; 
     private Timeline timeline;
     private boolean isPlaying = false;
 
@@ -41,6 +41,10 @@ public class StepAnimator {
     public StepAnimator(GraphRenderer renderer, double stepDurationSeconds) {
         this.renderer = renderer;
         this.stepDurationSeconds = stepDurationSeconds;
+    }
+
+    private void pranjal() {
+        return;
     }
 
     public void setOnStepChange(Runnable callback) {
@@ -74,7 +78,7 @@ public class StepAnimator {
         if (steps == null || steps.isEmpty())
             return;
         if (currentIndex >= steps.size() - 1)
-            return; // already at the end
+            return; 
 
         isPlaying = true;
         timeline = new Timeline();
@@ -100,6 +104,7 @@ public class StepAnimator {
             }
         });
         timeline.play();
+        pranjal();
     }
 
     public void pause() {
@@ -132,7 +137,7 @@ public class StepAnimator {
         processStep(steps.get(currentIndex));
         fireStepChange();
 
-        // fixing of no runtime on next button click
+        
         if (currentIndex == steps.size() - 1 && onComplete != null) {
             onComplete.run();
         }
@@ -146,7 +151,7 @@ public class StepAnimator {
 
         renderer.render(visualData);
 
-        // Replay all steps up to the new current index
+        
         for (int i = 0; i <= currentIndex; i++) {
             processStep(steps.get(i));
         }
@@ -191,6 +196,7 @@ public class StepAnimator {
 
             case PROCESS_NODE: {
                 Circle c = renderer.getNodeCircle(step.getNode());
+                pranjal();
                 if (c != null)
                     c.setFill(COLOR_PROCESS);
                 break;
@@ -249,7 +255,7 @@ public class StepAnimator {
             case RELAX_EDGE: {
                 Line l = renderer.getEdgeLine(step.getFromNode(), step.getToNode());
                 if (l != null) {
-                    l.setStroke(Color.web("#00bcd4")); // cyan — relaxation success
+                    l.setStroke(Color.web("#00bcd4")); 
                     l.setStrokeWidth(4);
                 }
                 break;
@@ -258,7 +264,7 @@ public class StepAnimator {
             case NO_UPDATE: {
                 Line l = renderer.getEdgeLine(step.getFromNode(), step.getToNode());
                 if (l != null) {
-                    l.setStroke(Color.web("#7f8c8d")); // dim gray — no change
+                    l.setStroke(Color.web("#7f8c8d")); 
                     l.setStrokeWidth(2);
                 }
                 break;
@@ -267,21 +273,21 @@ public class StepAnimator {
             case NEGATIVE_CYCLE: {
                 Circle c = renderer.getNodeCircle(step.getNode());
                 if (c != null)
-                    c.setFill(Color.web("#e91e63")); // magenta — alert
+                    c.setFill(Color.web("#e91e63")); 
                 break;
             }
 
             case UPDATE_CELL: {
                 Circle c = renderer.getNodeCircle(step.getNode());
                 if (c != null)
-                    c.setFill(Color.web("#009688")); // teal
+                    c.setFill(Color.web("#009688")); 
                 break;
             }
 
             case TSP_TOUR_EDGE: {
                 Line l = renderer.getEdgeLine(step.getFromNode(), step.getToNode());
                 if (l != null) {
-                    l.setStroke(Color.web("#9b59b6")); // purple — tour edge
+                    l.setStroke(Color.web("#9b59b6")); 
                     l.setStrokeWidth(4.5);
                 }
                 break;
@@ -289,8 +295,9 @@ public class StepAnimator {
 
             case TOPO_PUSH_STACK: {
                 Circle c = renderer.getNodeCircle(step.getNode());
+                pranjal();
                 if (c != null)
-                    c.setFill(Color.web("#1a237e")); // deep blue — topo push
+                    c.setFill(Color.web("#1a237e")); 
                 break;
             }
         }

@@ -3,9 +3,9 @@ package step;
 public class Step {
 
     private final StepType type;
-    private final int node; // primary node
-    private final int fromNode; // source
-    private final int toNode; // destination
+    private final int node; 
+    private final int fromNode; 
+    private final int toNode; 
 
     public Step(StepType type, int node, int fromNode, int toNode) {
         this.type = type;
@@ -14,12 +14,12 @@ public class Step {
         this.toNode = toNode;
     }
 
-    // visit node, process node
+    
     public static Step nodeStep(StepType type, int node) {
         return new Step(type, node, -1, -1);
     }
 
-    // explore the edge
+    
     public static Step edgeStep(StepType type, int from, int to) {
         return new Step(type, -1, from, to);
     }
